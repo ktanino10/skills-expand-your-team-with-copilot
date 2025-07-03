@@ -420,7 +420,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Handle difficulty filter
       if (currentDifficulty && currentDifficulty !== "All") {
-        queryParams.push(`difficulty=${encodeURIComponent(currentDifficulty)}`);
+      if (currentDifficulty) {
+        const mappedDifficulty = currentDifficulty === "All Levels" ? "None" : currentDifficulty;
+        queryParams.push(`difficulty=${encodeURIComponent(mappedDifficulty)}`);
       }
 
       const queryString =
