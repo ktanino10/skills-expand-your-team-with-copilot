@@ -1,0 +1,157 @@
+name: ✏️ Modify Existing Activity
+description: Request changes to an existing activity (schedule, description, capacity, etc.)
+title: "[MODIFY ACTIVITY] Update activity: "
+labels: ["enhancement", "modify-activity", "teacher-request"]
+assignees: ["copilot"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request changes to an existing activity. Please provide the current activity name and what you'd like to change.
+
+  - type: dropdown
+    id: existing_activity
+    attributes:
+      label: Which activity needs to be modified?
+      description: Select the activity you want to change
+      options:
+        - Chess Club
+        - Programming Class
+        - Art Studio
+        - Drama Club
+        - Math Club
+        - Debate Team
+        - Weekend Robotics Workshop
+        - Manga Maniacs
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: input
+    id: other_activity_name
+    attributes:
+      label: Other Activity Name
+      description: If you selected "Other" above, what is the exact name of the activity?
+      placeholder: e.g., "Science Bowl", "Photography Club"
+
+  - type: checkboxes
+    id: changes_needed
+    attributes:
+      label: What needs to be changed?
+      description: Check all that apply
+      options:
+        - label: Activity name
+        - label: Description
+        - label: Schedule (days and/or times)
+        - label: Maximum number of participants
+        - label: Remove all current participants
+        - label: Add specific students
+        - label: Remove specific students
+
+  - type: input
+    id: new_activity_name
+    attributes:
+      label: New Activity Name
+      description: If changing the name, what should the new name be?
+      placeholder: e.g., "Advanced Chess Club"
+
+  - type: textarea
+    id: new_description
+    attributes:
+      label: New Description
+      description: If changing the description, provide the new description text
+      placeholder: Provide the complete new description for the activity
+
+  - type: checkboxes
+    id: new_schedule_days
+    attributes:
+      label: New Meeting Days
+      description: If changing schedule, which days should the activity meet? (Check all that apply)
+      options:
+        - label: Monday
+        - label: Tuesday  
+        - label: Wednesday
+        - label: Thursday
+        - label: Friday
+        - label: Saturday
+        - label: Sunday
+
+  - type: input
+    id: new_start_time
+    attributes:
+      label: New Start Time
+      description: If changing schedule, what should the new start time be?
+      placeholder: e.g., "3:30 PM", "7:00 AM", "2:00 PM"
+
+  - type: input
+    id: new_end_time
+    attributes:
+      label: New End Time
+      description: If changing schedule, what should the new end time be?
+      placeholder: e.g., "5:00 PM", "8:00 AM", "4:00 PM"
+
+  - type: input
+    id: new_max_participants
+    attributes:
+      label: New Maximum Participants
+      description: If changing capacity, what should the new maximum be?
+      placeholder: e.g., "15", "20", "25"
+
+  - type: textarea
+    id: students_to_add
+    attributes:
+      label: Students to Add
+      description: If adding students, list their email addresses (one per line)
+      placeholder: |
+        student1@mergington.edu
+        student2@mergington.edu
+
+  - type: textarea
+    id: students_to_remove
+    attributes:
+      label: Students to Remove
+      description: If removing specific students, list their email addresses (one per line)
+      placeholder: |
+        student1@mergington.edu
+        student2@mergington.edu
+
+  - type: textarea
+    id: reason_for_changes
+    attributes:
+      label: Reason for Changes
+      description: Why are these changes needed?
+      placeholder: e.g., "Room conflict with another activity", "More student interest than expected", "Teacher schedule change"
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Any other information that would be helpful?
+
+  - type: markdown
+    attributes:
+      value: |
+        ## For the Developer/Copilot Agent
+        
+        **Acceptance Criteria:**
+        - [ ] Identify the correct activity in `src/backend/database.py`
+        - [ ] Update only the requested fields while preserving existing data
+        - [ ] If changing activity name, update the dictionary key appropriately
+        - [ ] If changing schedule, update both human-readable and schedule_details formats
+        - [ ] If changing participants, update the participants array accordingly
+        - [ ] If changing max_participants, validate current participants don't exceed new limit
+        - [ ] Test that changes appear correctly in the frontend
+        - [ ] Verify activity functionality still works after changes
+        
+        **Implementation Hints:**
+        - Look at the current activity structure in `initial_activities` dictionary
+        - Time format conversion: human-readable (e.g., "3:30 PM") vs 24-hour (e.g., "15:30")
+        - Preserve existing participants unless specifically requested to change
+        - Update both `schedule` (human-readable) and `schedule_details` (structured) fields
+        - Consider database implications if this activity has existing registrations
+        
+        **Files to modify:**
+        - `src/backend/database.py` (update initial_activities entry)
+        - Potentially database migration if activity name changes

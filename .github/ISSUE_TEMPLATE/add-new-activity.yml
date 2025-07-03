@@ -1,0 +1,131 @@
+name: 🎯 Add New Activity/Club
+description: Request to add a new extracurricular activity or club to the system
+title: "[NEW ACTIVITY] Add new activity: "
+labels: ["enhancement", "new-activity", "teacher-request"]
+assignees: ["copilot"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for wanting to add a new activity! Please fill out the information below to help us create your new club or activity.
+
+  - type: input
+    id: activity_name
+    attributes:
+      label: Activity/Club Name
+      description: What is the name of the new activity or club?
+      placeholder: e.g., "Photography Club", "Science Olympiad", "Basketball Team"
+    validations:
+      required: true
+
+  - type: textarea
+    id: activity_description
+    attributes:
+      label: Activity Description
+      description: Provide a detailed description of what students will do in this activity
+      placeholder: e.g., "Learn photography techniques, develop film, and participate in photo contests around the school"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: activity_category
+    attributes:
+      label: Activity Category
+      description: What type of activity is this?
+      options:
+        - Academic (math, science, debate, etc.)
+        - Arts (art, music, theater, photography, etc.)
+        - Sports (athletics, fitness, recreational sports)
+        - Technology (coding, robotics, computer science)
+        - Community Service (volunteering, environmental, etc.)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: max_participants
+    attributes:
+      label: Maximum Number of Participants
+      description: How many students can participate at once?
+      placeholder: e.g., "15", "20", "30"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: schedule_days
+    attributes:
+      label: Meeting Days
+      description: Which days will the activity meet? (Check all that apply)
+      options:
+        - label: Monday
+        - label: Tuesday  
+        - label: Wednesday
+        - label: Thursday
+        - label: Friday
+        - label: Saturday
+        - label: Sunday
+
+  - type: input
+    id: start_time
+    attributes:
+      label: Start Time
+      description: What time does the activity start?
+      placeholder: e.g., "3:30 PM", "7:00 AM", "2:00 PM"
+    validations:
+      required: true
+
+  - type: input
+    id: end_time
+    attributes:
+      label: End Time
+      description: What time does the activity end?
+      placeholder: e.g., "5:00 PM", "8:00 AM", "4:00 PM"
+    validations:
+      required: true
+
+  - type: input
+    id: teacher_sponsor
+    attributes:
+      label: Teacher Sponsor
+      description: Which teacher will be sponsoring/supervising this activity?
+      placeholder: e.g., "Ms. Rodriguez", "Mr. Chen"
+    validations:
+      required: true
+
+  - type: textarea
+    id: special_requirements
+    attributes:
+      label: Special Requirements or Equipment
+      description: Does this activity need any special equipment, rooms, or other requirements?
+      placeholder: e.g., "Needs art studio access", "Requires projector", "Outdoor space needed"
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Any other information that would be helpful?
+      placeholder: Any other details about the activity
+
+  - type: markdown
+    attributes:
+      value: |
+        ## For the Developer/Copilot Agent
+        
+        **Acceptance Criteria:**
+        - [ ] Add new activity to the `initial_activities` dictionary in `src/backend/database.py`
+        - [ ] Format schedule using proper schedule and schedule_details structure
+        - [ ] Convert start/end times to 24-hour format for schedule_details
+        - [ ] Initialize with empty participants array
+        - [ ] Ensure max_participants is set correctly
+        - [ ] Test that the new activity appears in the frontend
+        - [ ] Verify teachers can sign up students for the new activity
+        
+        **Implementation Hints:**
+        - Look at existing activities in `database.py` for the correct format
+        - Schedule should be human-readable (e.g., "Mondays, 3:30 PM - 5:00 PM")
+        - schedule_details needs days array and start_time/end_time in HH:MM format
+        - Use the activity categorization system in `app.js` for proper filtering
+        
+        **Files to modify:**
+        - `src/backend/database.py` (add to initial_activities)
+        - Potentially update frontend category detection in `src/static/app.js` if needed

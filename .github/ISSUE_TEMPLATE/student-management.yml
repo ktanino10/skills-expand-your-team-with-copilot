@@ -1,0 +1,172 @@
+name: 👥 Student Management
+description: Bulk operations for student enrollment, transfers, or roster management
+title: "[STUDENT MGMT] "
+labels: ["enhancement", "student-management", "teacher-request"]
+assignees: ["copilot"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request bulk operations or special student management tasks that can't be done through the regular signup/unregister process.
+
+  - type: dropdown
+    id: operation_type
+    attributes:
+      label: What type of student management operation do you need?
+      options:
+        - Bulk student enrollment (add multiple students to an activity)
+        - Bulk student removal (remove multiple students from an activity)
+        - Transfer students between activities
+        - Create student roster/list from activity
+        - Import students from a list/file
+        - Clear all students from an activity
+        - Copy student list from one activity to another
+        - Other (describe below)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target_activity
+    attributes:
+      label: Which activity is this for?
+      description: Select the primary activity this operation affects
+      options:
+        - Chess Club
+        - Programming Class
+        - Art Studio
+        - Drama Club
+        - Math Club
+        - Debate Team
+        - Weekend Robotics Workshop
+        - Manga Maniacs
+        - Multiple activities (specify below)
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: other_activities
+    attributes:
+      label: Other/Multiple Activities
+      description: If you selected "Multiple activities" or "Other", specify which activities
+      placeholder: e.g., "Chess Club, Math Club, Programming Class"
+
+  - type: textarea
+    id: student_list
+    attributes:
+      label: Student Email Addresses
+      description: List the student email addresses (one per line) for this operation
+      placeholder: |
+        student1@mergington.edu
+        student2@mergington.edu
+        student3@mergington.edu
+        student4@mergington.edu
+
+  - type: dropdown
+    id: source_activity
+    attributes:
+      label: Source Activity (for transfers/copies)
+      description: If transferring or copying students, which activity are they coming from?
+      options:
+        - Not applicable
+        - Chess Club
+        - Programming Class
+        - Art Studio
+        - Drama Club
+        - Math Club
+        - Debate Team
+        - Weekend Robotics Workshop
+        - Manga Maniacs
+        - Other (specify in notes)
+
+  - type: checkboxes
+    id: operation_options
+    attributes:
+      label: Operation Options
+      description: Check any that apply to your request
+      options:
+        - label: Remove students from source activity (for transfers)
+        - label: Keep students in source activity (for copies)
+        - label: Verify capacity limits before adding students
+        - label: Send notification to affected students
+        - label: Create backup of current roster before changes
+
+  - type: textarea
+    id: reason_for_operation
+    attributes:
+      label: Reason for This Operation
+      description: Why is this bulk operation needed?
+      placeholder: e.g., "Class roster changes", "Activity merger", "Scheduling conflict resolution", "New student orientation"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: timing
+    attributes:
+      label: When should this operation be performed?
+      options:
+        - As soon as possible
+        - End of current week
+        - Start of next week
+        - Other (specify in notes)
+    validations:
+      required: true
+
+  - type: textarea
+    id: special_instructions
+    attributes:
+      label: Special Instructions
+      description: Any special considerations or requirements for this operation?
+      placeholder: e.g., "Only add students if activity isn't full", "Remove oldest registrations first", "Skip students already in target activity"
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Any other information about this student management request?
+
+  - type: markdown
+    attributes:
+      value: |
+        ## For the Developer/Copilot Agent
+        
+        **Acceptance Criteria:**
+        - [ ] Identify the target activity/activities in the database
+        - [ ] Validate all student email addresses are in proper format
+        - [ ] Check activity capacity limits before adding students
+        - [ ] Handle duplicate registrations gracefully (skip or report)
+        - [ ] Update participant lists in the database
+        - [ ] Verify changes are reflected in the frontend
+        - [ ] Test that regular signup/unregister functionality still works
+        
+        **Implementation Approach:**
+        - **Database Operations**: Modify `participants` arrays in `src/backend/database.py`
+        - **API Endpoints**: May need to create batch operation endpoints in `src/backend/routers/activities.py`
+        - **Data Validation**: Ensure email format validation and activity existence checks
+        - **Capacity Management**: Respect `max_participants` limits
+        - **Error Handling**: Graceful handling of invalid emails or full activities
+        
+        **Common Operations:**
+        1. **Bulk Add**: Add multiple students to `participants` array
+        2. **Bulk Remove**: Remove multiple students from `participants` array
+        3. **Transfer**: Remove from source activity, add to target activity
+        4. **Copy**: Add to target activity without removing from source
+        5. **Clear All**: Empty the `participants` array
+        
+        **Files to modify:**
+        - `src/backend/database.py` (update initial_activities participant lists)
+        - Potentially `src/backend/routers/activities.py` (if creating new batch endpoints)
+        - Consider creating a utility script for one-time operations
+        
+        **Error Handling:**
+        - Invalid email addresses
+        - Students already registered
+        - Activity capacity exceeded
+        - Non-existent activities
+        - Database connection issues
+        
+        **Testing:**
+        - Verify participant counts are correct
+        - Test frontend display updates
+        - Confirm regular signup/unregister still works
+        - Test edge cases (empty lists, duplicate emails, etc.)

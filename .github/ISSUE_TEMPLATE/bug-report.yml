@@ -1,0 +1,153 @@
+name: 🐛 Bug Report
+description: Report a problem with the activities system
+title: "[BUG] "
+labels: ["bug", "teacher-report"]
+assignees: ["copilot"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please describe what's happening and what you expected to happen.
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: What is the problem?
+      description: A clear description of what the bug is
+      placeholder: Describe what's not working as expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Go to the activities page
+        2. Click on 'Chess Club'
+        3. Try to register a student
+        4. See error message
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: What should happen instead?
+      description: What did you expect to happen?
+      placeholder: Describe the expected behavior
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area_affected
+    attributes:
+      label: Which part of the system is affected?
+      description: Where are you experiencing the problem?
+      options:
+        - Student registration/signup
+        - Student unregistration
+        - Activity display/viewing
+        - Activity filtering (by day, time, category)
+        - Teacher login/authentication
+        - Activity search
+        - Schedule display
+        - Activity capacity/availability
+        - Other (describe in notes)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: specific_activity
+    attributes:
+      label: Is this affecting a specific activity?
+      description: If this problem is with one particular activity, which one?
+      options:
+        - All activities
+        - Chess Club
+        - Programming Class
+        - Art Studio
+        - Drama Club
+        - Math Club
+        - Debate Team
+        - Weekend Robotics Workshop
+        - Manga Maniacs
+        - Other (specify in notes)
+
+  - type: textarea
+    id: error_messages
+    attributes:
+      label: Error Messages
+      description: If you see any error messages, copy them exactly here
+      placeholder: Copy any error messages you see
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often does this happen?
+      options:
+        - Always (every time)
+        - Sometimes (occasionally)
+        - Once (first time seeing this)
+        - Not sure
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: How urgent is this issue?
+      description: How much is this impacting your work?
+      options:
+        - Critical (blocking all activity management)
+        - High (affecting multiple activities or many students)
+        - Medium (affecting some activities or some students)
+        - Low (minor inconvenience)
+    validations:
+      required: true
+
+  - type: input
+    id: teacher_account
+    attributes:
+      label: Your Teacher Account
+      description: What teacher username are you using?
+      placeholder: e.g., "mrodriguez", "mchen"
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other information that might help
+      placeholder: Browser used, time when it happened, other relevant details
+
+  - type: markdown
+    attributes:
+      value: |
+        ## For the Developer/Copilot Agent
+        
+        **Debugging Approach:**
+        - [ ] Reproduce the issue following the provided steps
+        - [ ] Check server logs for any error messages
+        - [ ] Examine the specific code path related to the affected area
+        - [ ] Test with the mentioned teacher account if provided
+        - [ ] Verify database state and data integrity
+        - [ ] Test both frontend and backend components
+        
+        **Common Bug Areas:**
+        - **Authentication**: Check `src/backend/routers/auth.py` and frontend login flow
+        - **Activity Management**: Check `src/backend/routers/activities.py`
+        - **Database Issues**: Check `src/backend/database.py` and MongoDB connection
+        - **Frontend Issues**: Check `src/static/app.js` and `src/static/index.html`
+        - **API Integration**: Check request/response handling between frontend and backend
+        
+        **Files to investigate:**
+        - Backend: `src/backend/routers/activities.py`, `src/backend/routers/auth.py`
+        - Frontend: `src/static/app.js`, `src/static/index.html`
+        - Database: `src/backend/database.py`
+        - Configuration: `src/app.py`
+        
+        **Testing checklist:**
+        - [ ] Test the specific reproduction steps
+        - [ ] Test edge cases around the bug area
+        - [ ] Verify fix doesn't break other functionality
+        - [ ] Test with different teacher accounts
+        - [ ] Test with different activities if activity-specific

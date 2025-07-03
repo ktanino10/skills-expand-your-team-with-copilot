@@ -1,0 +1,132 @@
+name: ❌ Remove/Cancel Activity
+description: Request to remove or cancel an existing activity
+title: "[REMOVE ACTIVITY] Cancel activity: "
+labels: ["enhancement", "remove-activity", "teacher-request"]
+assignees: ["copilot"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Request to remove or cancel an existing activity from the system.
+
+  - type: dropdown
+    id: activity_to_remove
+    attributes:
+      label: Which activity should be removed?
+      description: Select the activity you want to cancel/remove
+      options:
+        - Chess Club
+        - Programming Class
+        - Art Studio
+        - Drama Club
+        - Math Club
+        - Debate Team
+        - Weekend Robotics Workshop
+        - Manga Maniacs
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: other_activity_name
+    attributes:
+      label: Other Activity Name
+      description: If you selected "Other" above, what is the exact name of the activity?
+      placeholder: e.g., "Science Bowl", "Photography Club"
+
+  - type: dropdown
+    id: removal_type
+    attributes:
+      label: Type of Removal
+      description: Are you temporarily canceling or permanently removing this activity?
+      options:
+        - Temporary cancellation (may return later)
+        - Permanent removal
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason_for_removal
+    attributes:
+      label: Reason for Removal
+      description: Why is this activity being removed or canceled?
+      placeholder: e.g., "Low enrollment", "Teacher unavailable", "Budget constraints", "Room no longer available"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: current_participants
+    attributes:
+      label: Current Participants
+      description: What should happen to students currently registered?
+      options:
+        - label: Notify all registered students about the cancellation
+        - label: Provide list of alternative activities
+        - label: Automatically unregister all students
+    validations:
+      required: true
+
+  - type: textarea
+    id: student_notification
+    attributes:
+      label: Message for Students
+      description: What message should be communicated to currently registered students?
+      placeholder: e.g., "Due to scheduling conflicts, Chess Club is canceled for this semester. Please consider joining Math Club or Programming Class."
+
+  - type: textarea
+    id: alternative_activities
+    attributes:
+      label: Suggested Alternative Activities
+      description: Are there similar activities students could join instead?
+      placeholder: e.g., "Students interested in strategy games might enjoy Math Club or Programming Class"
+
+  - type: dropdown
+    id: timing
+    attributes:
+      label: When should this removal take effect?
+      description: When should the activity be removed from the system?
+      options:
+        - Immediately
+        - End of current week
+        - End of current month
+        - End of current semester
+        - Other (specify in notes)
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Any other information about this removal?
+      placeholder: Any special considerations or additional context
+
+  - type: markdown
+    attributes:
+      value: |
+        ## For the Developer/Copilot Agent
+        
+        **Acceptance Criteria:**
+        - [ ] Remove the activity from `initial_activities` in `src/backend/database.py`
+        - [ ] Verify the activity name matches exactly (case-sensitive)
+        - [ ] Consider any existing student registrations in the database
+        - [ ] Test that the activity no longer appears in the frontend
+        - [ ] Verify API endpoints handle the missing activity gracefully
+        - [ ] Update any hardcoded references to the activity if they exist
+        
+        **Implementation Hints:**
+        - Remove the entire activity entry from the `initial_activities` dictionary
+        - Check if the activity name appears in dropdown options in HTML templates
+        - Consider database cleanup if there are existing registrations
+        - Test the frontend filtering and display after removal
+        - Ensure API endpoints don't crash when the activity is missing
+        
+        **Files to modify:**
+        - `src/backend/database.py` (remove from initial_activities)
+        - `src/static/index.html` (remove from dropdown if hardcoded)
+        - Any configuration files that reference the activity
+        
+        **Database Considerations:**
+        - If the activity has existing registrations, they will become orphaned
+        - Consider if database cleanup is needed beyond the initial_activities change
+        - The system should handle gracefully if students try to access a removed activity
