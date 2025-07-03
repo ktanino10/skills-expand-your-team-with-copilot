@@ -1,0 +1,78 @@
+name: 💬 General Issue
+description: For issues that don't fit other categories
+title: "[GENERAL] "
+labels: ["question", "teacher-request"]
+assignees: ["copilot"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For issues that don't fit into the other specific categories. Please provide as much detail as possible.
+
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: Describe your issue or question
+      description: What would you like help with?
+      placeholder: Provide a clear description of what you need
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: What type of issue is this?
+      options:
+        - Question about how something works
+        - Documentation improvement
+        - System configuration
+        - Training or help request
+        - Suggestion for process improvement
+        - Other technical issue
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: How urgent is this?
+      options:
+        - High (blocking daily work)
+        - Medium (affecting efficiency)
+        - Low (when convenient)
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Any other information that might be helpful
+      placeholder: Background information, what you've already tried, etc.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## For the Developer/Copilot Agent
+        
+        **General Issue Handling:**
+        - [ ] Understand the specific request or problem
+        - [ ] Determine if this should be converted to a more specific issue type
+        - [ ] Provide appropriate guidance or implementation
+        - [ ] Consider if documentation updates are needed
+        
+        **Common General Issues:**
+        - Configuration questions
+        - Process improvements
+        - Documentation gaps
+        - Training needs
+        - System understanding
+        - Integration questions
+        
+        **Response Approach:**
+        - Clarify the specific need if unclear
+        - Provide step-by-step guidance for procedural questions
+        - Implement changes for valid improvement requests
+        - Update documentation for recurring questions
+        - Consider creating new issue templates for common patterns

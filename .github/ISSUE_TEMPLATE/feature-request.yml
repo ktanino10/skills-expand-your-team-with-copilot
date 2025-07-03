@@ -1,0 +1,161 @@
+name: ✨ Feature Request
+description: Request a new feature or enhancement for the activities system
+title: "[FEATURE] "
+labels: ["enhancement", "feature-request", "teacher-request"]
+assignees: ["copilot"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! Please describe what you'd like to see added to the system.
+
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: What new feature would you like?
+      description: A clear description of the feature you're requesting
+      placeholder: Describe the new functionality you'd like to see
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem_solving
+    attributes:
+      label: What problem would this solve?
+      description: What challenge or issue would this feature address?
+      placeholder: Explain the problem this feature would solve or the improvement it would make
+    validations:
+      required: true
+
+  - type: dropdown
+    id: feature_category
+    attributes:
+      label: What type of feature is this?
+      description: Which area of the system would this affect?
+      options:
+        - Student management (enrollment, tracking, etc.)
+        - Activity management (scheduling, organization, etc.)
+        - Reporting and analytics
+        - User interface improvements
+        - Communication features
+        - Search and filtering
+        - Data export/import
+        - Security and permissions
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: user_type
+    attributes:
+      label: Who would primarily use this feature?
+      options:
+        - Teachers
+        - Students
+        - Administrators
+        - Everyone
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature_details
+    attributes:
+      label: Detailed Feature Description
+      description: Provide more specific details about how this feature should work
+      placeholder: |
+        Example:
+        - Add a calendar view showing all activities by day/week
+        - Allow teachers to export student lists to CSV
+        - Add email notifications for activity updates
+
+  - type: textarea
+    id: user_story
+    attributes:
+      label: User Story
+      description: Describe this feature from a user's perspective
+      placeholder: "As a [teacher/student/admin], I want to [do something] so that I can [achieve goal]"
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: How important is this feature to you?
+      options:
+        - Critical (essential for daily work)
+        - High (would significantly improve workflow)
+        - Medium (nice to have)
+        - Low (minor convenience)
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Current Workarounds
+      description: How are you currently handling this without the feature?
+      placeholder: Describe any workarounds or manual processes you're using
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples or Mockups
+      description: If you have examples from other systems or ideas for the interface, describe them here
+      placeholder: Describe any examples or provide links to similar features in other systems
+
+  - type: checkboxes
+    id: considerations
+    attributes:
+      label: Additional Considerations
+      description: Check any that apply to this feature request
+      options:
+        - label: This feature should work on mobile devices
+        - label: This feature needs to integrate with existing data
+        - label: This feature should be accessible to users with disabilities
+        - label: This feature might need administrator approval/configuration
+        - label: This feature could affect system performance
+
+  - type: textarea
+    id: additional_notes
+    attributes:
+      label: Additional Notes
+      description: Any other information about this feature request?
+
+  - type: markdown
+    attributes:
+      value: |
+        ## For the Developer/Copilot Agent
+        
+        **Implementation Planning:**
+        - [ ] Analyze the feature requirements and technical feasibility
+        - [ ] Identify which components need modification (frontend, backend, database)
+        - [ ] Consider impact on existing functionality
+        - [ ] Plan database schema changes if needed
+        - [ ] Design API endpoints if new ones are required
+        - [ ] Consider user interface changes and user experience
+        
+        **Architecture Considerations:**
+        - **Frontend**: May need updates to `src/static/app.js` and `src/static/index.html`
+        - **Backend**: May need new routes in `src/backend/routers/` or modifications to existing ones
+        - **Database**: Consider changes to `src/backend/database.py` and data structure
+        - **API Design**: Follow existing patterns in the FastAPI application
+        - **User Experience**: Maintain consistency with existing interface
+        
+        **Common Feature Categories:**
+        - **Student Management**: Bulk operations, import/export, advanced search
+        - **Activity Management**: Calendar views, recurring events, capacity management
+        - **Reporting**: Analytics, attendance tracking, activity popularity
+        - **UI Improvements**: Better filtering, sorting, responsive design
+        - **Communication**: Notifications, announcements, email integration
+        
+        **Implementation Steps:**
+        1. Design the feature architecture and data flow
+        2. Create/modify database structures if needed
+        3. Implement backend API endpoints
+        4. Create/update frontend components
+        5. Test integration and user experience
+        6. Consider edge cases and error handling
+        
+        **Files likely to be modified:**
+        - Backend routes: `src/backend/routers/activities.py` or new router files
+        - Database: `src/backend/database.py`
+        - Frontend: `src/static/app.js`, `src/static/index.html`
+        - Main app: `src/app.py` (if new routers are added)
