@@ -1,35 +1,35 @@
 /* Color palette */
 :root {
-  /* Primary colors */
-  --primary: #1a237e;
-  --primary-light: #534bae;
-  --primary-dark: #000051;
-  --primary-text: #ffffff;
+  /* Primary colors - School lime green */
+  --primary: #32CD32;
+  --primary-light: #90EE90;
+  --primary-dark: #228B22;
+  --primary-text: #000000;
 
-  /* Secondary colors */
-  --secondary: #ff6f00;
-  --secondary-light: #ffa040;
-  --secondary-dark: #c43e00;
-  --secondary-text: #ffffff;
+  /* Secondary colors - School white */
+  --secondary: #ffffff;
+  --secondary-light: #f8f8f8;
+  --secondary-dark: #e0e0e0;
+  --secondary-text: #32CD32;
 
   /* Neutral colors */
-  --background: #f5f5f5;
-  --surface: #ffffff;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --border: #e0e0e0;
-  --border-light: #f0f0f0;
-  --border-focus: #d0d0d0;
+  --background: #ffffff;
+  --surface: #f8fff8;
+  --text-primary: #000000;
+  --text-secondary: #2d7a2d;
+  --border: #90EE90;
+  --border-light: #e0ffe0;
+  --border-focus: #32CD32;
 
   /* Feedback colors */
-  --success: #2e7d32;
-  --success-light: #e8f5e9;
-  --warning: #ff9800;
-  --warning-light: #fff3cd;
-  --error: #c62828;
+  --success: #228B22;
+  --success-light: #e8f5e8;
+  --warning: #ffa500;
+  --warning-light: #fff8dc;
+  --error: #dc143c;
   --error-light: #ffebee;
-  --info: #0c5460;
-  --info-light: #d1ecf1;
+  --info: #32CD32;
+  --info-light: #e0ffe0;
 }
 
 * {
@@ -48,13 +48,44 @@ body {
   padding: 12px;
   background-color: var(--background);
   font-size: 0.9rem;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated Git branch background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
+  background-image: 
+    /* Main branch line */
+    linear-gradient(90deg, rgba(50, 205, 50, 0.1) 2px, transparent 2px),
+    /* Branch lines */
+    linear-gradient(45deg, rgba(50, 205, 50, 0.05) 1px, transparent 1px),
+    linear-gradient(-45deg, rgba(50, 205, 50, 0.05) 1px, transparent 1px);
+  background-size: 200px 200px, 100px 100px, 100px 100px;
+  animation: gitBranches 30s linear infinite;
+}
+
+@keyframes gitBranches {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 200px 200px, 100px 100px, -100px 100px;
+  }
 }
 
 header {
   text-align: center;
   padding: 12px 0;
   margin-bottom: 15px;
-  background-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
   color: var(--primary-text);
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
@@ -62,6 +93,44 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Mascots container */
+.mascots-container {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.mascot {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  opacity: 0.8;
+  animation: float 3s ease-in-out infinite;
+}
+
+.left-mascot {
+  margin-left: 20px;
+  animation-delay: 0s;
+}
+
+.right-mascot {
+  margin-right: 20px;
+  animation-delay: 1.5s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 header h1 {
@@ -474,6 +543,26 @@ footer {
   padding: 10px;
   color: var(--text-secondary);
   font-size: 0.8rem;
+}
+
+.footer-mascots {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.footer-mascot {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.footer-mascot:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 /* Search and Filter Components - Updated for Sidebar */
